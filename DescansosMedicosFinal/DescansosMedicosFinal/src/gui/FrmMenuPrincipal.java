@@ -78,7 +78,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem6.setText("jMenuItem6");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu Principal");
 
         mn_mantenimiento.setBackground(new java.awt.Color(102, 102, 102));

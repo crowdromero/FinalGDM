@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author ll
@@ -16,9 +18,14 @@ public class Principal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        FrmMenuPrincipal frm=new FrmMenuPrincipal();
-        frm.setLocationRelativeTo(frm);
-        frm.setVisible(true);
+        FrmMenuPrincipal frame=new FrmMenuPrincipal();
+        
+        
+        frame.setVisible(true);
+        Dimension dim = frame.getToolkit().getScreenSize();
+        frame.setLocationRelativeTo(frame);
+        frame.setSize(dim);
+        frame.setUndecorated(true);
     }
     
 }

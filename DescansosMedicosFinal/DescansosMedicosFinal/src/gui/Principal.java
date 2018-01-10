@@ -18,14 +18,13 @@ public class Principal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        FrmMenuPrincipal frame=new FrmMenuPrincipal();
         
+        FrmLogin frame=new FrmLogin();
         
-        frame.setVisible(true);
-        Dimension dim = frame.getToolkit().getScreenSize();
         frame.setLocationRelativeTo(frame);
-        frame.setSize(dim);
-        frame.setUndecorated(true);
+        frame.setVisible(true);
+        
+        
     }
     
 }

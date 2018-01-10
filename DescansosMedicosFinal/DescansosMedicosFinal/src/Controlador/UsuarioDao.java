@@ -54,6 +54,7 @@ public class UsuarioDao {
 		Usuario usu1=UsuarioDao.obtenerUsuario(usu);
 		
 		if(usu1!=null) {
+                        
 			JOptionPane.showMessageDialog(null, "Bienvenido");
 			                       
                         FrmMenuPrincipal frame=new FrmMenuPrincipal();

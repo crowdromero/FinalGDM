@@ -43,7 +43,7 @@ public class UsuarioDao {
 		return usuario;
 	}
         
-        public static void ingresar(String usuario,String contraseña) {
+        public static boolean ingresar(String usuario,String contraseña) {
 		
 		UsuarioDao usuariodao=new UsuarioDao();
 		
@@ -52,7 +52,7 @@ public class UsuarioDao {
 		usu.setUsu_contraseña(contraseña);
 		
 		Usuario usu1=UsuarioDao.obtenerUsuario(usu);
-		
+		boolean retorno=true;
 		if(usu1!=null) {
                         
 			JOptionPane.showMessageDialog(null, "Bienvenido");
@@ -64,12 +64,14 @@ public class UsuarioDao {
                         Dimension dim = frame.getToolkit().getScreenSize();
                         frame.setLocationRelativeTo(frame);
                         frame.setSize(dim);
-                        frame.setUndecorated(true);
+                        //frame.setUndecorated(true);
                         
 			
 		}else {
 			JOptionPane.showMessageDialog(null, "Datos Invalidos","Error",JOptionPane.ERROR_MESSAGE);
+                        retorno=false;
 		}
+                return retorno;
         }
 	
 }

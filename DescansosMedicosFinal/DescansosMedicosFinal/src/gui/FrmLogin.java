@@ -133,7 +133,8 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
+                
+        
                 if (txtUsuario.getText().equals("") && txtpwPassword.getText().equals("") ) {
 			JOptionPane.showMessageDialog(this,"Ingrese usuario y contraseña");
 		} else if (txtpwPassword.getText().equals("")) {
@@ -141,9 +142,17 @@ public class FrmLogin extends javax.swing.JFrame {
 		}else if (txtUsuario.getText().equals("")) {
 			JOptionPane.showMessageDialog(this,"Ingrese un usuario");
 		}
-		if (txtUsuario.getText().length()>0 && txtpwPassword.getText().length()>0) {
-                    dispose();
-                    UsuarioDao.ingresar(txtUsuario.getText(),txtpwPassword.getText());
+		if (txtUsuario.getText().trim().length()>0 && txtpwPassword.getText().trim().length()>0) {
+                char[] arrayC = txtpwPassword.getPassword(); 
+                String pass = new String(arrayC);    
+                System.out.println(""+pass);
+                boolean paracerrar=  UsuarioDao.ingresar(txtUsuario.getText(),pass);  
+                    
+                    if (paracerrar) {
+                        System.out.println("que carajo pasa!");
+                        dispose();
+                    }
+                    
                     
 		}
     }//GEN-LAST:event_btnIngresarActionPerformed

@@ -57,6 +57,18 @@ public Empleado(String idempleado, String emp_nombre, String emp_apellido, int e
 	this.emp_iddistrito = emp_iddistrito;
 }
 
+    public Empleado(String idempleado, String emp_nombre, String emp_apellido, String emp_numero_doc, Date emp_fecha_naciemiento, String emp_telefono, String emp_direccion, String emp_correo) {
+        this.idempleado = idempleado;
+        this.emp_nombre = emp_nombre;
+        this.emp_apellido = emp_apellido;
+        this.emp_numero_doc = emp_numero_doc;
+        this.emp_fecha_naciemiento = emp_fecha_naciemiento;
+        this.emp_telefono = emp_telefono;
+        this.emp_direccion = emp_direccion;
+        this.emp_correo = emp_correo;
+    }
+
+
 
 public Empleado() {
 	

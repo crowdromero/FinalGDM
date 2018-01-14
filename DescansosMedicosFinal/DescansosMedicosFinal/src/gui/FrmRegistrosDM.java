@@ -8,6 +8,7 @@ package gui;
 import Controlador.DescansoMedicoDao;
 import Controlador.TipoLicenciaDao;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,6 +81,11 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
         txtNumero.setEnabled(false);
 
         btnEmpleado.setText("...");
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
 
         txtEmpleadoNom.setEnabled(false);
 
@@ -331,6 +337,10 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
+        if (cboTipo_licencia.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(this,"Seleccione una opcion de Licencia");
+            
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
@@ -339,6 +349,13 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
             txtNumero_Dias.setText(diferenciaEnDias2(dtcFecha_Fin.getDate(), dtcFecha_inicio.getDate())+1+"");
 	}	
     }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        // TODO add your handling code here:
+        FrmBUscarEmpleados busqueda=new FrmBUscarEmpleados();
+        busqueda.setVisible(true);
+                
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
     
     protected void numeroAutogenerado() {
 		txtNumero.setText(DescansoMedicoDao.obtenerDescansosMedicos().size()+1000000+1+"");
@@ -417,8 +434,8 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
     private javax.swing.JTextField txtCentro_medico;
     private javax.swing.JTextField txtCentro_medico1;
     private javax.swing.JTextField txtDiagnostico;
-    private javax.swing.JTextField txtEmpleado;
-    private javax.swing.JTextField txtEmpleadoNom;
+    public static javax.swing.JTextField txtEmpleado;
+    public static javax.swing.JTextField txtEmpleadoNom;
     private javax.swing.JTextField txtMedico;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtNumero_Dias;

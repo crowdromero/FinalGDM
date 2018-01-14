@@ -145,7 +145,7 @@ public class FrmLogin extends javax.swing.JFrame {
 		if (txtUsuario.getText().trim().length()>0 && txtpwPassword.getText().trim().length()>0) {
                 char[] arrayC = txtpwPassword.getPassword(); 
                 String pass = new String(arrayC);    
-                System.out.println(""+pass);
+                
                 boolean paracerrar=  UsuarioDao.ingresar(txtUsuario.getText(),pass);  
                     
                     if (paracerrar) {

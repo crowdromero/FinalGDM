@@ -6,7 +6,10 @@
 package gui;
 
 import Controlador.EmpleadoDao;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,6 +56,18 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
 
         jLabel3.setText("Apellidos");
 
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
+        });
+
+        txtapellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapellidosKeyTyped(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -74,6 +89,11 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,9 +178,12 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         if (txtcodigo.getText().trim().length()<1 && txtnombre.getText().trim().length()<1 && txtapellidos.getText().trim().length()<1  ) {
             EmpleadoDao.llenarTablaEmpleado(jTable1);
         }
-        if (txtapellidos.getText().trim().length()>0) {
-            EmpleadoDao.llenarTablaEmpleadoxapellido(jTable1,txtapellidos.getText());
-            
+        if (txtcodigo.getText().trim().length()>0) {
+            EmpleadoDao.llenarTablaEmpleadoxCodigo(jTable1,txtcodigo.getText().trim());            
+        }
+ 
+        if (txtapellidos.getText().trim().length()>0 || txtnombre.getText().trim().length()>0 ) {
+            EmpleadoDao.llenarTablaEmpleadoxdatos(jTable1,txtnombre.getText().trim(),txtapellidos.getText().trim());
         }
         
         
@@ -184,6 +207,50 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnseleccionarActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtcodigo.setText("");
+        txtapellidos.setText("");
+        txtnombre.setText("");
+        
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+        // TODO add your handling code here:
+        /*char c= evt.getKeyChar();
+        if ((c<'a' || c>'z')&& (c<'A' || c>'Z')) {
+            evt.consume();
+            getToolkit().beep();
+            
+        }*/
+        char c= evt.getKeyChar();
+        if (Character.isDigit(c)) {
+                evt.consume();
+                getToolkit().beep();
+                
+        }
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txtapellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        if (Character.isDigit(c)) {
+                evt.consume();
+                getToolkit().beep();
+        }
+    }//GEN-LAST:event_txtapellidosKeyTyped
+    
+    /*
+    public void Sletras(JTextField a){
+        a.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e){
+            char c= e.getKeyChar();
+            if (Character.isDigit(c)) {
+                e.consume();
+            }
+        }
+                
+        });
+    }*/
     /**
      * @param args the command line arguments
      */

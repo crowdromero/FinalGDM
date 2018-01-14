@@ -60,7 +60,7 @@ public class EmpleadoDao {
         tabla.setModel(dtm);
      }
      
-     public static List<Empleado> obtenerEmpleado(String apellido){
+     public static List<Empleado> obtenerEmpleadoxDatos(String nombre,String apellido){
 		Empleado empleado=null;
 		Connection con=null;
 		PreparedStatement ps;
@@ -72,9 +72,10 @@ public class EmpleadoDao {
 			
 						
                     con = MySqlConection.getConection();
-                    String sql="{call sp_consultar_EmpleadosxApellido(?)}";
+                    String sql="{call sp_consultar_EmpleadosxDatos(?,?)}";
                     ps=con.prepareCall(sql);
-                    ps.setString(1, apellido);
+                    ps.setString(1, nombre);
+                    ps.setString(2, apellido);
                     rs=ps.executeQuery();
 	        	
                     while(rs.next()) {
@@ -88,18 +89,53 @@ public class EmpleadoDao {
 		return listadeempleados;
     }
      
-    public static void llenarTablaEmpleadoxapellido(JTable tabla,String apellido){
+    public static void llenarTablaEmpleadoxdatos(JTable tabla,String nombre,String apellido){
          
          String CabeceraListado[]= new String[]{"Codigo Empleado", "Nombres","Apellidos","Nro Documento","Fecha de Nacimiento","Telefono","Correo"};
          DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
-         for (Empleado x:obtenerEmpleado(apellido)) {
+         for (Empleado x:obtenerEmpleadoxDatos(nombre,apellido)) {
             Object fila[] = { x.getIdempleado(), x.getEmp_nombre(),x.getEmp_apellido(), x.getEmp_numero_doc(),x.getEmp_fecha_naciemiento(), x.getEmp_telefono(), x.getEmp_correo()};
             dtm.addRow(fila);
         }
         tabla.setModel(dtm);
      } 
      
+    public static List<Empleado> obtenerEmpleadoxCodigo(String codigo){
+		Empleado empleado=null;
+		Connection con=null;
+		PreparedStatement ps;
+		ResultSet rs=null;
+		List<Empleado> listadeempleados = new ArrayList<Empleado>();
+		
+        
+		try {
+			
+						
+                    con = MySqlConection.getConection();
+                    String sql="{call sp_consultar_EmpleadosxCodigo(?)}";
+                    ps=con.prepareCall(sql);
+                    ps.setString(1, codigo);
+                    rs=ps.executeQuery();
+	        	
+                    while(rs.next()) {
+			empleado=new Empleado(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getDate(6), rs.getString(8), rs.getString(9), rs.getString(10));
+                        listadeempleados.add(empleado);
+                    }
+            
+		} catch (Exception e) {
+			System.out.println("error al obtener los Registros");
+		}
+		return listadeempleados;
+    }
      
-     
-    
+    public static void llenarTablaEmpleadoxCodigo(JTable tabla,String codigo){
+         
+         String CabeceraListado[]= new String[]{"Codigo Empleado", "Nombres","Apellidos","Nro Documento","Fecha de Nacimiento","Telefono","Correo"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (Empleado x:obtenerEmpleadoxCodigo(codigo)) {
+            Object fila[] = { x.getIdempleado(), x.getEmp_nombre(),x.getEmp_apellido(), x.getEmp_numero_doc(),x.getEmp_fecha_naciemiento(), x.getEmp_telefono(), x.getEmp_correo()};
+            dtm.addRow(fila);
+        }
+        tabla.setModel(dtm);
+     }
 }

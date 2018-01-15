@@ -6,7 +6,12 @@
 package gui;
 
 import Controlador.DescansoMedicoDao;
+import Controlador.DiagnosticoDao;
+import Controlador.EmpleadoDao;
+import static Controlador.EmpleadoDao.obtenerEmpleadoxCodigo;
 import Controlador.TipoLicenciaDao;
+import Modelo.Diagnostico;
+import Modelo.Empleado;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -80,6 +85,12 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
 
         txtNumero.setEnabled(false);
 
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmpleadoKeyReleased(evt);
+            }
+        });
+
         btnEmpleado.setText("...");
         btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +122,20 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
         jLabel8.setText("Observaciones");
 
         btnDiagnostico.setText("...");
+        btnDiagnostico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiagnosticoActionPerformed(evt);
+            }
+        });
+
+        txtcodDiagnostico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcodDiagnosticoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcodDiagnosticoKeyTyped(evt);
+            }
+        });
 
         txtDiagnostico.setEnabled(false);
 
@@ -356,6 +381,43 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
         busqueda.setVisible(true);
                 
     }//GEN-LAST:event_btnEmpleadoActionPerformed
+
+    private void txtEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyReleased
+        // TODO add your handling code here:
+        if (txtEmpleado.getText().trim().length()>5) {
+            for (Empleado x:obtenerEmpleadoxCodigo(txtEmpleado.getText().trim())) {
+               txtEmpleadoNom.setText(x.getEmp_nombre()+" "+x.getEmp_apellido());
+            }
+            
+        }else txtEmpleadoNom.setText(null);
+    }//GEN-LAST:event_txtEmpleadoKeyReleased
+
+    private void btnDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosticoActionPerformed
+        // TODO add your handling code here:
+        FrmBusquedaDiagnostico busqueda=new FrmBusquedaDiagnostico();
+        busqueda.setVisible(true);
+    }//GEN-LAST:event_btnDiagnosticoActionPerformed
+
+    private void txtcodDiagnosticoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodDiagnosticoKeyReleased
+        // TODO add your handling code here:
+        if (txtcodDiagnostico.getText().trim().length()>0) {
+            for (Diagnostico x:DiagnosticoDao.obtenerDiagnosticos(txtcodDiagnostico.getText().trim())) {
+               txtDiagnostico.setText(x.getDescripcion());
+            }
+        }else{
+            txtDiagnostico.setText(null);
+        }
+    }//GEN-LAST:event_txtcodDiagnosticoKeyReleased
+
+    private void txtcodDiagnosticoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodDiagnosticoKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+                evt.consume();
+                getToolkit().beep();
+                
+        }
+    }//GEN-LAST:event_txtcodDiagnosticoKeyTyped
     
     protected void numeroAutogenerado() {
 		txtNumero.setText(DescansoMedicoDao.obtenerDescansosMedicos().size()+1000000+1+"");
@@ -431,16 +493,16 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCentro_medico;
-    private javax.swing.JTextField txtCentro_medico1;
-    private javax.swing.JTextField txtDiagnostico;
+    public static javax.swing.JTextField txtCentro_medico;
+    public static javax.swing.JTextField txtCentro_medico1;
+    public static javax.swing.JTextField txtDiagnostico;
     public static javax.swing.JTextField txtEmpleado;
     public static javax.swing.JTextField txtEmpleadoNom;
-    private javax.swing.JTextField txtMedico;
+    public static javax.swing.JTextField txtMedico;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtNumero_Dias;
     private javax.swing.JTextArea txtObservacion;
-    private javax.swing.JTextField txtcodDiagnostico;
-    private javax.swing.JTextField txtmediconombre;
+    public static javax.swing.JTextField txtcodDiagnostico;
+    public static javax.swing.JTextField txtmediconombre;
     // End of variables declaration//GEN-END:variables
 }

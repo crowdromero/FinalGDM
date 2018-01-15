@@ -46,7 +46,8 @@ public class TipoLicenciaDao {
 	
 		
 	}
-
+    
+       
     public static void llenarCombo(JComboBox cboTipo_licencia) {
         cboTipo_licencia.removeAllItems();
         

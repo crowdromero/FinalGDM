@@ -12,7 +12,6 @@ public class Medico {
 private String idmedico;
 private String ed_nombres;
 private String med_apellidos;
-
 private int med_activo;
 
 

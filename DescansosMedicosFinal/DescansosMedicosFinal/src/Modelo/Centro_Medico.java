@@ -30,6 +30,14 @@ public Centro_Medico(int idcentro_medico, String cem_ruc, String cem_nombre, Str
 	this.cem_estado = cem_estado;
 }
 
+    public Centro_Medico(int idcentro_medico, String cem_ruc, String cem_nombre, String cem_direccion, int cem_estado) {
+        this.idcentro_medico = idcentro_medico;
+        this.cem_ruc = cem_ruc;
+        this.cem_nombre = cem_nombre;
+        this.cem_direccion = cem_direccion;
+        this.cem_estado = cem_estado;
+    }
+
 
 public Centro_Medico() {
 	

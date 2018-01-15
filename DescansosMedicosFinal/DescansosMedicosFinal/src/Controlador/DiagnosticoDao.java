@@ -6,9 +6,7 @@
 package Controlador;
 
 import Conexion.MySqlConection;
-import static Controlador.EmpleadoDao.obtenerEmpleados;
 import Modelo.Diagnostico;
-import Modelo.Empleado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

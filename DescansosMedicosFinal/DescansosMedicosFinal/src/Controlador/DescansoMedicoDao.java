@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import Conexion.MySqlConection;
 import Modelo.Descanso_medico;
 import Modelo.ListadoDescansoMedico;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -32,25 +34,26 @@ public class DescansoMedicoDao{
 		
 		Connection con=null;
 		PreparedStatement pst=null;
-		
+		//call sp_nuevo_descanso_medico(1000001,'E00001','2017/12/20','2017/12/25',1,1,'07777',1,'Nada interesante que contar',5);
 		
 		try {
 			con = MySqlConection.getConection();
+			String sql="{call sp_nuevo_descanso_medico((?),(?),(?),(?),(?),(?),(?),(?),(?),(?))}";
+                        pst=con.prepareCall(sql);
+                        pst.setInt(1, nuevoDM.getIddescansomedico());
+			pst.setString(2, nuevoDM.getDm_idempleado());
+			pst.setString(3,nuevoDM.getDm_fechaincio());
+			pst.setString(4,nuevoDM.getDm_fechafin());
+			pst.setInt(5, nuevoDM.getDm_tipolicencia());
+			pst.setInt(6,nuevoDM.getDm_diagnostico());
+			pst.setString(7,nuevoDM.getDm_medico());
+			pst.setInt(8, nuevoDM.getDm_centromedico());
+			pst.setString(9, nuevoDM.getDm_observaciones());
+			pst.setInt(10, nuevoDM.getDm_cantidaddias());
+                        pst.executeQuery();
 			
 			
-			String insertTableSQL = "INSERT INTO DESCANSOMEDICO"+ " (iddescansomedico, dm_idempleado, dm_fechaincio, dm_fechafin, dm_tipolicencia,dm_diagnostico, dm_medico, dm_centromedico, dm_observaciones,dm_cant_dias) VALUES"+"(?,?,?,?,?,?,?,?,?,?)";
-			 pst=con.prepareStatement(insertTableSQL);
-			 pst.setInt(1, nuevoDM.getIddescansomedico());
-			 pst.setString(2, nuevoDM.getDm_idempleado());
-			 pst.setString(3,nuevoDM.getDm_fechaincio());
-			 pst.setString(4,nuevoDM.getDm_fechafin());
-			 pst.setInt(5, nuevoDM.getDm_tipolicencia());
-			 pst.setInt(6,nuevoDM.getDm_diagnostico());
-			 pst.setString(7,nuevoDM.getDm_medico());
-			 pst.setInt(8, nuevoDM.getDm_centromedico());
-			 pst.setString(9, nuevoDM.getDm_observaciones());
-			 pst.setInt(10, nuevoDM.getDm_cantidaddias());
-			 pst.executeUpdate();
+			// pst.executeUpdate();
 			 System.out.println("Se añadio correctamente el Registro");
 			 
 		} catch (Exception e) {
@@ -73,12 +76,19 @@ public class DescansoMedicoDao{
 		try {
 			con = MySqlConection.getConection();
 			String sql="call sp_consultar_descanso_medico";
-	        ps=con.prepareCall(sql);
-	        rs=ps.executeQuery();
+                        ps=con.prepareCall(sql);
+                        rs=ps.executeQuery();
 	        
             
-            while(rs.next()) {
-				 ldm=new ListadoDescansoMedico(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5),  rs.getString(6),  rs.getString(7),  rs.getString(8),  rs.getString(9),  rs.getString(10),  rs.getString(11),  rs.getString(12),  rs.getString(13),  rs.getInt(14));
+                        while(rs.next()) {
+				 ldm=new ListadoDescansoMedico(rs.getInt(1),
+                                                               rs.getString(2), rs.getString(3), 
+                                                               rs.getString(4),  rs.getString(5),  
+                                                               rs.getString(6),  rs.getString(7),  
+                                                               rs.getString(8),  rs.getString(9),  
+                                                               rs.getString(10),  rs.getString(11),  
+                                                               rs.getString(12),  rs.getString(13),  
+                                                               rs.getInt(14));
 				 listadedm.add(ldm);
 			 }
             
@@ -86,40 +96,7 @@ public class DescansoMedicoDao{
 			System.out.println("error al obtener los Registros");
 		}
 		return listadedm;
-	
 		
-		/*ListadoDescansoMedico ldm=null;
-		Connection con=null;
-		PreparedStatement pst=null;
-		ResultSet rs=null;
-		List<ListadoDescansoMedico> listadedm = new ArrayList<ListadoDescansoMedico>();
-		
-		try {
-			con = MySqlConection.getConection();
-			String sql="select dm.iddescansomedico,e.idempleado,e.emp_nombre,e.emp_apellido,dm.dm_fechaincio,dm_fechafin,dm.dm_tipolicencia,dm.dm_tipodescanso,ta.tate_descripcion,diag.diag_descripcion,med.idmedico,med_nombres,med_apellidos,cm.cem_nombre,dm.dm_observaciones " + 
-					"from descansomedico as dm " + 
-					"inner join empleado as e " + 
-					"on dm.dm_idempleado=e.idempleado " + 
-					"inner join diagnostico as diag " + 
-					"on dm.dm_diagnostico=diag.iddiagnostico " + 
-					"inner join `centro _medico` as cm " + 
-					"on dm.dm_centromedico=cm.idcentro_medico " + 
-					"inner join medico as med " + 
-					"on dm.dm_medico=med.idmedico " + 
-					"inner join tipo_atencion as ta " + 
-					"on dm.dm_tipoatencion=ta.idtipo_atencion";
-			 pst=con.prepareStatement(sql);
-			 rs=pst.executeQuery();
-			 while(rs.next()) {
-				 ldm=new ListadoDescansoMedico(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5),  rs.getString(6),  rs.getString(7),  rs.getString(8),  rs.getString(9),  rs.getString(10),  rs.getString(11),  rs.getString(12),  rs.getString(13),  rs.getString(14),  rs.getString(15));
-				 listadedm.add(ldm);
-			 }
-		} catch (Exception e) {
-			System.out.println("error al obtener los Registros");
-		}
-		
-		
-		return listadedm;*/
 	}
 	
 	public static List<ListadoDescansoMedico> obtenerDescansosMedicosPorFecha(String fecha){
@@ -189,6 +166,22 @@ public class DescansoMedicoDao{
 		return listadedm;
 	}
 	
+        
+        public static void llenarTablaDescansoMedico(JTable tabla){
+         
+         String CabeceraListado[]= new String[]{"Nro","Codigo","Nombre","Apellido","Fecha Inicio","Fecha Final","Licencia","Diagnostico","Observaciones","CMP","Medico","RUC","Centro Medico","Duracion"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (ListadoDescansoMedico x:obtenerDescansosMedicos()) {
+               Object fila[] = { x.getIddescansomedico(),x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getDm_fechaincio(),x.getDm_fechafin(),
+                                 x.getDm_tipolicencia(),x.getDiag_descripcion(),x.getDm_observaciones(),x.getDm_medico(),x.getMed_nombres(),x.getRuccem(),x.getCem_nombre(),x.getCantDias()}; 
+                dtm.addRow(fila);
+             
+            
+            
+        }
+        tabla.setModel(dtm);
+     }
+        
 	
 }
 

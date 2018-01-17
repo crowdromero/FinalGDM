@@ -5,25 +5,20 @@
  */
 package gui;
 
-import Controlador.EmpleadoDao;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import Controlador.MedicoDao;
 
 /**
  *
  * @author Xen
  */
-public class FrmBUscarEmpleados extends javax.swing.JFrame {
+public class FrmBuscarMedico extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmBUscarEmpleados
+     * Creates new form FrmBuscarMedico
      */
-    public FrmBUscarEmpleados() {
+    public FrmBuscarMedico() {
         initComponents();
-        EmpleadoDao.llenarTablaEmpleado(jTable1);
+        MedicoDao.llenarTablaMedico(jTable1);
     }
 
     /**
@@ -35,22 +30,50 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnbuscar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnseleccionar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtcodigo = new javax.swing.JTextField();
+        txtcmp = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         txtapellidos = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnbuscar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
-        btncancelar = new javax.swing.JButton();
-        btnseleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Codigo");
+
+        btnseleccionar.setText("Seleccionar");
+        btnseleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnseleccionarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre");
 
@@ -81,44 +104,14 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        btnbuscar.setText("Buscar");
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
-            }
-        });
-
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-
-        btncancelar.setText("Cancelar");
-        btncancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncancelarActionPerformed(evt);
-            }
-        });
-
-        btnseleccionar.setText("Seleccionar");
-        btnseleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnseleccionarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -126,16 +119,12 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtnombre)
-                                        .addGap(52, 52, 52)))
+                                    .addComponent(txtcmp, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(52, 52, 52)
                                 .addComponent(jLabel3)
                                 .addGap(16, 16, 16)
-                                .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31))
+                                .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
@@ -143,16 +132,19 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                                 .addGap(52, 52, 52)
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addComponent(btncancelar)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                .addComponent(btncancelar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -167,7 +159,7 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                     .addComponent(btnseleccionar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,44 +167,43 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        if (txtcodigo.getText().trim().length()<1 && txtnombre.getText().trim().length()<1 && txtapellidos.getText().trim().length()<1  ) {
-            EmpleadoDao.llenarTablaEmpleado(jTable1);
+        if (txtcmp.getText().trim().length()<1 && txtnombre.getText().trim().length()<1 && txtapellidos.getText().trim().length()<1  ) {
+            MedicoDao.llenarTablaMedico(jTable1);
         }
-        if (txtcodigo.getText().trim().length()>0) {
-            EmpleadoDao.llenarTablaEmpleadoxCodigo(jTable1,txtcodigo.getText().trim());            
+        if (txtcmp.getText().trim().length()>0) {
+            MedicoDao.llenarTablaMedicoxCMP(jTable1, txtcmp.getText().trim());
         }
- 
+
         if (txtapellidos.getText().trim().length()>0 || txtnombre.getText().trim().length()>0 ) {
-            EmpleadoDao.llenarTablaEmpleadoxdatos(jTable1,txtnombre.getText().trim(),txtapellidos.getText().trim());
+            MedicoDao.llenarTablamedicoxnombre(jTable1, txtnombre.getText().trim(), txtapellidos.getText().trim());
         }
-        
-        
+
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtcmp.setText("");
+        txtapellidos.setText("");
+        txtnombre.setText("");
+
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
         dispose();
-        
+
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void btnseleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnseleccionarActionPerformed
-       int row = jTable1.getSelectedRow();
-       String id=jTable1.getValueAt(row, 0).toString();
-       String name=jTable1.getValueAt(row, 1).toString();
-       String apellido=jTable1.getValueAt(row, 2).toString();
-       
-        FrmRegistrosDM.txtEmpleado.setText(id);
-        FrmRegistrosDM.txtEmpleadoNom.setText(name +" "+ apellido);
-        dispose();
-       
-    }//GEN-LAST:event_btnseleccionarActionPerformed
+        int row = jTable1.getSelectedRow();
+        String id=jTable1.getValueAt(row, 0).toString();
+        String name=jTable1.getValueAt(row, 1).toString();
+        String apellido=jTable1.getValueAt(row, 2).toString();
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtcodigo.setText("");
-        txtapellidos.setText("");
-        txtnombre.setText("");
-        
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+        FrmRegistrosDM.txtMedico.setText(id);
+        FrmRegistrosDM.txtmediconombre.setText(name +" "+ apellido);
+        dispose();
+
+    }//GEN-LAST:event_btnseleccionarActionPerformed
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
         // TODO add your handling code here:
@@ -220,13 +211,13 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         if ((c<'a' || c>'z')&& (c<'A' || c>'Z')) {
             evt.consume();
             getToolkit().beep();
-            
+
         }*/
         char c= evt.getKeyChar();
         if (Character.isDigit(c)) {
-                evt.consume();
-                getToolkit().beep();
-                
+            evt.consume();
+            getToolkit().beep();
+
         }
     }//GEN-LAST:event_txtnombreKeyTyped
 
@@ -234,23 +225,11 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         char c= evt.getKeyChar();
         if (Character.isDigit(c)) {
-                evt.consume();
-                getToolkit().beep();
+            evt.consume();
+            getToolkit().beep();
         }
     }//GEN-LAST:event_txtapellidosKeyTyped
-    
-    /*
-    public void Sletras(JTextField a){
-        a.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e){
-            char c= e.getKeyChar();
-            if (Character.isDigit(c)) {
-                e.consume();
-            }
-        }
-                
-        });
-    }*/
+
     /**
      * @param args the command line arguments
      */
@@ -268,20 +247,20 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmBUscarEmpleados().setVisible(true);
+                new FrmBuscarMedico().setVisible(true);
             }
         });
     }
@@ -297,7 +276,7 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtapellidos;
-    private javax.swing.JTextField txtcodigo;
+    private javax.swing.JTextField txtcmp;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 }

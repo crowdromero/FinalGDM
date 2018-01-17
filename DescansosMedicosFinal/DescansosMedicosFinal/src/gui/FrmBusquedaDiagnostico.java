@@ -41,7 +41,7 @@ public class FrmBusquedaDiagnostico extends javax.swing.JFrame {
         btnlimpiar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Codigo");
 

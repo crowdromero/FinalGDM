@@ -5,13 +5,19 @@
  */
 package gui;
 
+import Controlador.CMedicoDao;
 import Controlador.DescansoMedicoDao;
 import Controlador.DiagnosticoDao;
 import Controlador.EmpleadoDao;
 import static Controlador.EmpleadoDao.obtenerEmpleadoxCodigo;
+import Controlador.MedicoDao;
 import Controlador.TipoLicenciaDao;
+import Modelo.Centro_Medico;
+import Modelo.Descanso_medico;
 import Modelo.Diagnostico;
 import Modelo.Empleado;
+import Modelo.Medico;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -104,6 +110,10 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
 
         jLabel5.setText("Fecha Fin");
 
+        dtcFecha_inicio.setDateFormatString("yyyy/MM/dd");
+
+        dtcFecha_Fin.setDateFormatString("yyyy/MM/dd");
+
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +157,24 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
 
         jLabel10.setText("Centro Medico");
 
+        txtMedico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMedicoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMedicoKeyTyped(evt);
+            }
+        });
+
+        txtCentro_medico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCentro_medicoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCentro_medicoKeyTyped(evt);
+            }
+        });
+
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,8 +197,18 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
         });
 
         btnMedico.setText("...");
+        btnMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedicoActionPerformed(evt);
+            }
+        });
 
         btnCentro_medico.setText("...");
+        btnCentro_medico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCentro_medicoActionPerformed(evt);
+            }
+        });
 
         txtmediconombre.setEnabled(false);
 
@@ -361,11 +399,42 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
+        int idcm = 0;
+        
         if (cboTipo_licencia.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Seleccione una opcion de Licencia");
-            
         }
+        
+        for (Centro_Medico x: CMedicoDao.obtenerCentrosMedicosxRuc(txtCentro_medico.getText().trim())) {
+            idcm=x.getIdcentro_medico();
+        }
+        
+        String dm_fechaincio="";
+        String dm_fechafin="";
+        
+        try {
+		String formato = dtcFecha_inicio.getDateFormatString();
+		Date date = dtcFecha_inicio.getDate();
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
+		dm_fechaincio=String.valueOf(sdf.format(date));
+		String formato1 = dtcFecha_Fin.getDateFormatString();
+		Date date1 = dtcFecha_Fin.getDate();
+		SimpleDateFormat sdf1 = new SimpleDateFormat(formato);
+		dm_fechafin=String.valueOf(sdf1.format(date1));
+		System.out.println(dm_fechaincio);
+		System.out.println(dm_fechafin);
+
+        } catch (Exception e) {
+             //JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
+
+	}
+        //Integer.parseInt(txtNumero.getText())
+        Descanso_medico dm=new Descanso_medico(1000007, txtEmpleado.getText(),dm_fechaincio , dm_fechafin, cboTipo_licencia.getSelectedIndex(), Integer.parseInt(txtcodDiagnostico.getText()), txtMedico.getText(), idcm, txtObservacion.getText(), Integer.parseInt(txtNumero_Dias.getText()));
+        
+        DescansoMedicoDao.RegistrarDM(dm);
+        
+                
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
@@ -418,6 +487,65 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
                 
         }
     }//GEN-LAST:event_txtcodDiagnosticoKeyTyped
+
+    private void btnMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicoActionPerformed
+        // TODO add your handling code here:
+        FrmBuscarMedico busqueda=new FrmBuscarMedico();
+        busqueda.setVisible(true);
+        
+    }//GEN-LAST:event_btnMedicoActionPerformed
+
+    private void btnCentro_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentro_medicoActionPerformed
+        // TODO add your handling code here:
+        FrmBuscarCM busqueda=new FrmBuscarCM();
+        busqueda.setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_btnCentro_medicoActionPerformed
+
+    private void txtCentro_medicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCentro_medicoKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            getToolkit().beep();
+
+        }
+        
+    }//GEN-LAST:event_txtCentro_medicoKeyTyped
+
+    private void txtMedicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMedicoKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            getToolkit().beep();
+
+        }
+    }//GEN-LAST:event_txtMedicoKeyTyped
+
+    private void txtCentro_medicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCentro_medicoKeyReleased
+        // TODO add your handling code here:
+        if (txtCentro_medico.getText().trim().length()>10) {
+            for (Centro_Medico x: CMedicoDao.obtenerCentrosMedicosxRuc(txtCentro_medico.getText().trim())) {
+            txtCentro_medico1.setText(x.getCem_nombre());
+        }
+        }else{
+            txtCentro_medico1.setText(null);
+        }
+    }//GEN-LAST:event_txtCentro_medicoKeyReleased
+
+    private void txtMedicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMedicoKeyReleased
+        // TODO add your handling code here:
+        if (txtMedico.getText().trim().length()>4) {
+            for (Medico x: MedicoDao.obtenerMedicosxCMP(txtMedico.getText().trim())) {
+            txtmediconombre.setText(x.getEd_nombres()+" "+x.getMed_apellidos());
+        }
+        }else{
+            txtmediconombre.setText(null);
+        }
+    }//GEN-LAST:event_txtMedicoKeyReleased
     
     protected void numeroAutogenerado() {
 		txtNumero.setText(DescansoMedicoDao.obtenerDescansosMedicos().size()+1000000+1+"");

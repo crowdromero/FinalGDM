@@ -5,25 +5,20 @@
  */
 package gui;
 
-import Controlador.EmpleadoDao;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import Controlador.CMedicoDao;
 
 /**
  *
  * @author Xen
  */
-public class FrmBUscarEmpleados extends javax.swing.JFrame {
+public class FrmBuscarCM extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmBUscarEmpleados
+     * Creates new form FrmBuscarCM
      */
-    public FrmBUscarEmpleados() {
+    public FrmBuscarCM() {
         initComponents();
-        EmpleadoDao.llenarTablaEmpleado(jTable1);
+        CMedicoDao.llenarTablaCMedico(jTable1);  
     }
 
     /**
@@ -35,36 +30,37 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        btnseleccionar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtcodigo = new javax.swing.JTextField();
-        txtnombre = new javax.swing.JTextField();
-        txtapellidos = new javax.swing.JTextField();
+        txtruc = new javax.swing.JTextField();
+        txtrsocial = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnbuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
-        btnseleccionar = new javax.swing.JButton();
+        lblruc = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Codigo");
-
-        jLabel2.setText("Nombre");
-
-        jLabel3.setText("Apellidos");
-
-        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreKeyTyped(evt);
+        btnseleccionar.setText("Seleccionar");
+        btnseleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnseleccionarActionPerformed(evt);
             }
         });
 
-        txtapellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel2.setText("Razon Social");
+
+        txtruc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapellidosKeyTyped(evt);
+                txtrucKeyTyped(evt);
+            }
+        });
+
+        txtrsocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtrsocialKeyTyped(evt);
             }
         });
 
@@ -102,40 +98,26 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
             }
         });
 
-        btnseleccionar.setText("Seleccionar");
-        btnseleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnseleccionarActionPerformed(evt);
-            }
-        });
+        lblruc.setText("RUC");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                    .addComponent(lblruc))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtnombre)
-                                        .addGap(52, 52, 52)))
-                                .addComponent(jLabel3)
-                                .addGap(16, 16, 16)
-                                .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31))
+                                    .addComponent(txtruc, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtrsocial, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
@@ -143,22 +125,21 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                                 .addGap(52, 52, 52)
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addComponent(btncancelar)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                .addComponent(btncancelar))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblruc)
+                    .addComponent(txtruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtrsocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnbuscar)
@@ -167,90 +148,60 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                     .addComponent(btnseleccionar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnseleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnseleccionarActionPerformed
+        int row = jTable1.getSelectedRow();
+        String id=jTable1.getValueAt(row, 0).toString();
+        String name=jTable1.getValueAt(row, 1).toString();
+        
+        FrmRegistrosDM.txtCentro_medico.setText(id);
+        FrmRegistrosDM.txtCentro_medico1.setText(name);
+        dispose();
+    }//GEN-LAST:event_btnseleccionarActionPerformed
+
+    private void txtrsocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrsocialKeyTyped
+        //la razon social si puede tener numeros
+    }//GEN-LAST:event_txtrsocialKeyTyped
+
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        if (txtcodigo.getText().trim().length()<1 && txtnombre.getText().trim().length()<1 && txtapellidos.getText().trim().length()<1  ) {
-            EmpleadoDao.llenarTablaEmpleado(jTable1);
+        if (txtruc.getText().trim().length()<1 && txtrsocial.getText().trim().length()<1  ) {
+            CMedicoDao.llenarTablaCMedico(jTable1);
         }
-        if (txtcodigo.getText().trim().length()>0) {
-            EmpleadoDao.llenarTablaEmpleadoxCodigo(jTable1,txtcodigo.getText().trim());            
+        if (txtruc.getText().trim().length()>0) {
+            CMedicoDao.llenarTablaCMedicoxRuc(jTable1, txtruc.getText().trim());
         }
- 
-        if (txtapellidos.getText().trim().length()>0 || txtnombre.getText().trim().length()>0 ) {
-            EmpleadoDao.llenarTablaEmpleadoxdatos(jTable1,txtnombre.getText().trim(),txtapellidos.getText().trim());
+
+        if (txtrsocial.getText().trim().length()>0 ) {
+            CMedicoDao.llenarTablaCMedicoxRS(jTable1, txtrsocial.getText().trim());
         }
-        
-        
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtruc.setText("");
+        txtrsocial.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
         dispose();
-        
     }//GEN-LAST:event_btncancelarActionPerformed
 
-    private void btnseleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnseleccionarActionPerformed
-       int row = jTable1.getSelectedRow();
-       String id=jTable1.getValueAt(row, 0).toString();
-       String name=jTable1.getValueAt(row, 1).toString();
-       String apellido=jTable1.getValueAt(row, 2).toString();
-       
-        FrmRegistrosDM.txtEmpleado.setText(id);
-        FrmRegistrosDM.txtEmpleadoNom.setText(name +" "+ apellido);
-        dispose();
-       
-    }//GEN-LAST:event_btnseleccionarActionPerformed
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtcodigo.setText("");
-        txtapellidos.setText("");
-        txtnombre.setText("");
-        
-    }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+    private void txtrucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrucKeyTyped
         // TODO add your handling code here:
-        /*char c= evt.getKeyChar();
-        if ((c<'a' || c>'z')&& (c<'A' || c>'Z')) {
+        char c= evt.getKeyChar();
+        if (!Character.isDigit(c)) {
             evt.consume();
             getToolkit().beep();
-            
-        }*/
-        char c= evt.getKeyChar();
-        if (Character.isDigit(c)) {
-                evt.consume();
-                getToolkit().beep();
-                
-        }
-    }//GEN-LAST:event_txtnombreKeyTyped
 
-    private void txtapellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosKeyTyped
-        // TODO add your handling code here:
-        char c= evt.getKeyChar();
-        if (Character.isDigit(c)) {
-                evt.consume();
-                getToolkit().beep();
         }
-    }//GEN-LAST:event_txtapellidosKeyTyped
-    
-    /*
-    public void Sletras(JTextField a){
-        a.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e){
-            char c= e.getKeyChar();
-            if (Character.isDigit(c)) {
-                e.consume();
-            }
-        }
-                
-        });
-    }*/
+    }//GEN-LAST:event_txtrucKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -268,20 +219,20 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarCM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarCM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarCM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBUscarEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarCM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmBUscarEmpleados().setVisible(true);
+                new FrmBuscarCM().setVisible(true);
             }
         });
     }
@@ -291,13 +242,11 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnseleccionar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtapellidos;
-    private javax.swing.JTextField txtcodigo;
-    private javax.swing.JTextField txtnombre;
+    private javax.swing.JLabel lblruc;
+    private javax.swing.JTextField txtrsocial;
+    private javax.swing.JTextField txtruc;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,11 @@
  */
 package gui;
 
+import Controlador.DescansoMedicoDao;
+import Controlador.DiagnosticoDao;
+import Controlador.TipoLicenciaDao;
+import Modelo.Diagnostico;
+
 /**
  *
  * @author ll
@@ -16,6 +21,8 @@ public class FrmMotivo extends javax.swing.JFrame {
      */
     public FrmMotivo() {
         initComponents();
+        TipoLicenciaDao.llenarCombo(cboTipo_licencia);
+        DescansoMedicoDao.llenarTablaDescansoMedico(jTable1);
     }
 
     /**
@@ -27,22 +34,189 @@ public class FrmMotivo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btncancelar = new javax.swing.JButton();
+        btnlimpiar = new javax.swing.JButton();
+        btnconsultar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cboTipo_licencia = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        btnDiagnostico = new javax.swing.JButton();
+        txtcodDiagnostico = new javax.swing.JTextField();
+        txtDiagnostico = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Motivo");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
+        btnlimpiar.setText("Limpiar");
+        btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlimpiarActionPerformed(evt);
+            }
+        });
+
+        btnconsultar.setText("Consultar");
+        btnconsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconsultarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Tipo Licencia");
+
+        cboTipo_licencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("Diagnostico");
+
+        btnDiagnostico.setText("Buscar");
+        btnDiagnostico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiagnosticoActionPerformed(evt);
+            }
+        });
+
+        txtcodDiagnostico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcodDiagnosticoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcodDiagnosticoKeyTyped(evt);
+            }
+        });
+
+        txtDiagnostico.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cboTipo_licencia, 0, 223, Short.MAX_VALUE)
+                            .addComponent(txtcodDiagnostico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDiagnostico))
+                        .addGap(47, 47, 47)
+                        .addComponent(btnDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnconsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnconsultar)
+                    .addComponent(jLabel6)
+                    .addComponent(cboTipo_licencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnlimpiar)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btncancelar)
+                            .addComponent(jLabel7)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtcodDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+
+    }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
+        // TODO add your handling code here:
+        TipoLicenciaDao.llenarCombo(cboTipo_licencia);
+        txtDiagnostico.setText(null);
+        txtcodDiagnostico.setText(null);
+    }//GEN-LAST:event_btnlimpiarActionPerformed
+
+    private void btnconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultarActionPerformed
+        // TODO add your handling code here:
+        if (txtcodDiagnostico.getText()==null) {
+            DescansoMedicoDao.llenarTablaDescansoMedicoxLicencia(jTable1,cboTipo_licencia.getSelectedIndex(),0);
+        }else
+            DescansoMedicoDao.llenarTablaDescansoMedicoxLicencia(jTable1,cboTipo_licencia.getSelectedIndex(),Integer.parseInt(txtcodDiagnostico.getText()));
+        
+       
+
+    }//GEN-LAST:event_btnconsultarActionPerformed
+
+    private void btnDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosticoActionPerformed
+        // TODO add your handling code here:
+        FrmBusquedaDiagnostico busqueda=new FrmBusquedaDiagnostico();
+        busqueda.setVisible(true);
+    }//GEN-LAST:event_btnDiagnosticoActionPerformed
+
+    private void txtcodDiagnosticoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodDiagnosticoKeyReleased
+        // TODO add your handling code here:
+        if (txtcodDiagnostico.getText().trim().length()>0) {
+            for (Diagnostico x:DiagnosticoDao.obtenerDiagnosticos(txtcodDiagnostico.getText().trim())) {
+                txtDiagnostico.setText(x.getDescripcion());
+            }
+        }else{
+            txtDiagnostico.setText(null);
+        }
+    }//GEN-LAST:event_txtcodDiagnosticoKeyReleased
+
+    private void txtcodDiagnosticoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodDiagnosticoKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            getToolkit().beep();
+
+        }
+    }//GEN-LAST:event_txtcodDiagnosticoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -80,5 +254,16 @@ public class FrmMotivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDiagnostico;
+    private javax.swing.JButton btncancelar;
+    private javax.swing.JButton btnconsultar;
+    private javax.swing.JButton btnlimpiar;
+    private javax.swing.JComboBox cboTipo_licencia;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    public static javax.swing.JTextField txtDiagnostico;
+    public static javax.swing.JTextField txtcodDiagnostico;
     // End of variables declaration//GEN-END:variables
 }

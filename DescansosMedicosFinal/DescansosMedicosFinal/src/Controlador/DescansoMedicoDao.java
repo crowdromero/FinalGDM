@@ -99,30 +99,64 @@ public class DescansoMedicoDao{
 		
 	}
 	
-	public static List<ListadoDescansoMedico> obtenerDescansosMedicosPorFecha(String fecha){
+	public static List<ListadoDescansoMedico> obtenerDescansosMedicosPorFecha(String dm_fechaincio,String dm_fechafin){
 		ListadoDescansoMedico ldm=null;
 		Connection con=null;
 		PreparedStatement ps;
 		ResultSet rs=null;
 		List<ListadoDescansoMedico> listadedm = new ArrayList<ListadoDescansoMedico>();
 		
-        
-		try {
-			
-						
+		try {			
 			con = MySqlConection.getConection();
 			
-			String sql="{call sp_consultar_descanso_medico_porfecha(?)}";
-	        ps=con.prepareCall(sql);
-	        System.out.println("llegue aca 1");
-	        ps.setString(1, fecha);
-	        rs=ps.executeQuery();
-	        System.out.println("llegue aca 2");
-	        
+			String sql="{call sp_consultar_descanso_medico_porfecha(?,?)}";
+                        ps=con.prepareCall(sql);
+                        ps.setString(1, dm_fechaincio);
+                        ps.setString(2, dm_fechafin);
+                        rs=ps.executeQuery();
             
-            while(rs.next()) {
-				 ldm=new ListadoDescansoMedico(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5),  rs.getString(6),  rs.getString(7),  rs.getString(8),  rs.getString(9),  rs.getString(10),  rs.getString(11),  rs.getString(12),  rs.getString(13),  rs.getInt(14));
-				 System.out.println("llegue aca 3");
+                        while(rs.next()) {
+				 ldm=new ListadoDescansoMedico(rs.getInt(1),
+                                                               rs.getString(2), rs.getString(3), 
+                                                               rs.getString(4),  rs.getString(5),  
+                                                               rs.getString(6),  rs.getString(7),  
+                                                               rs.getString(8),  rs.getString(9),  
+                                                               rs.getString(10),  rs.getString(11),  
+                                                               rs.getString(12),  rs.getString(13),  
+                                                               rs.getInt(14));
+				 listadedm.add(ldm);
+			 }
+            
+		} catch (Exception e) {
+			System.out.println("error al obtener los Registros");
+		}
+		return listadedm;
+	}
+        
+        public static List<ListadoDescansoMedico> obtenerDescansosMedicosxEmpleado(String codigo){
+		ListadoDescansoMedico ldm=null;
+		Connection con=null;
+		PreparedStatement ps;
+		ResultSet rs=null;
+		List<ListadoDescansoMedico> listadedm = new ArrayList<ListadoDescansoMedico>();
+		
+		try {			
+			con = MySqlConection.getConection();
+			
+			String sql="{call sp_consultar_descanso_medicoxEmpleado(?)}";
+                        ps=con.prepareCall(sql);
+                        ps.setString(1,codigo);
+                        rs=ps.executeQuery();
+            
+                        while(rs.next()) {
+				 ldm=new ListadoDescansoMedico(rs.getInt(1),
+                                                               rs.getString(2), rs.getString(3), 
+                                                               rs.getString(4),  rs.getString(5),  
+                                                               rs.getString(6),  rs.getString(7),  
+                                                               rs.getString(8),  rs.getString(9),  
+                                                               rs.getString(10),  rs.getString(11),  
+                                                               rs.getString(12),  rs.getString(13),  
+                                                               rs.getInt(14));
 				 listadedm.add(ldm);
 			 }
             
@@ -166,6 +200,40 @@ public class DescansoMedicoDao{
 		return listadedm;
 	}
 	
+        public static List<ListadoDescansoMedico> obtenerDescansosMedicosxMotivo(int licencia,int diagnostico){
+		ListadoDescansoMedico ldm=null;
+		Connection con=null;
+		PreparedStatement ps;
+		ResultSet rs=null;
+		List<ListadoDescansoMedico> listadedm = new ArrayList<ListadoDescansoMedico>();
+		
+		try {			
+			con = MySqlConection.getConection();
+			
+			String sql="{call sp_consultar_descanso_medicoxMotivo(?,?)}";
+                        ps=con.prepareCall(sql);
+                        ps.setInt(1,licencia);
+                        ps.setInt(2,diagnostico);
+                        rs=ps.executeQuery();
+            
+                        while(rs.next()) {
+				 ldm=new ListadoDescansoMedico(rs.getInt(1),
+                                                               rs.getString(2), rs.getString(3), 
+                                                               rs.getString(4),  rs.getString(5),  
+                                                               rs.getString(6),  rs.getString(7),  
+                                                               rs.getString(8),  rs.getString(9),  
+                                                               rs.getString(10),  rs.getString(11),  
+                                                               rs.getString(12),  rs.getString(13),  
+                                                               rs.getInt(14));
+				 listadedm.add(ldm);
+			 }
+            
+		} catch (Exception e) {
+			System.out.println("error al obtener los Registros");
+		}
+		return listadedm;
+	}
+        
         
         public static void llenarTablaDescansoMedico(JTable tabla){
          
@@ -181,7 +249,45 @@ public class DescansoMedicoDao{
         }
         tabla.setModel(dtm);
      }
+
+    public static void llenarTablaDescansoMedicoxFechas(JTable jTable1, String dm_fechaincio, String dm_fechafin) {
+        String CabeceraListado[]= new String[]{"Nro","Codigo","Nombre","Apellido","Fecha Inicio","Fecha Final","Licencia","Diagnostico","Observaciones","CMP","Medico","RUC","Centro Medico","Duracion"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (ListadoDescansoMedico x:obtenerDescansosMedicosPorFecha(dm_fechaincio,dm_fechafin)) {
+               Object fila[] = { x.getIddescansomedico(),x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getDm_fechaincio(),x.getDm_fechafin(),
+                                 x.getDm_tipolicencia(),x.getDiag_descripcion(),x.getDm_observaciones(),x.getDm_medico(),x.getMed_nombres(),x.getRuccem(),x.getCem_nombre(),x.getCantDias()}; 
+                dtm.addRow(fila);
+             
+        }
+        jTable1.setModel(dtm);
         
+        
+        
+    }
+
+    public static void llenarTablaDescansoMedicoxEmpleado(JTable jTable1, String text) {
+        String CabeceraListado[]= new String[]{"Nro","Codigo","Nombre","Apellido","Fecha Inicio","Fecha Final","Licencia","Diagnostico","Observaciones","CMP","Medico","RUC","Centro Medico","Duracion"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (ListadoDescansoMedico x:obtenerDescansosMedicosxEmpleado(text)) {
+               Object fila[] = { x.getIddescansomedico(),x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getDm_fechaincio(),x.getDm_fechafin(),
+                                 x.getDm_tipolicencia(),x.getDiag_descripcion(),x.getDm_observaciones(),x.getDm_medico(),x.getMed_nombres(),x.getRuccem(),x.getCem_nombre(),x.getCantDias()}; 
+                dtm.addRow(fila);
+        }
+        jTable1.setModel(dtm);
+    }
+
+    public static void llenarTablaDescansoMedicoxLicencia(JTable jTable1, int licencia,int diagnostico) {
+        String CabeceraListado[]= new String[]{"Nro","Codigo","Nombre","Apellido","Fecha Inicio","Fecha Final","Licencia","Diagnostico","Observaciones","CMP","Medico","RUC","Centro Medico","Duracion"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (ListadoDescansoMedico x:obtenerDescansosMedicosxMotivo(licencia,diagnostico)) {
+               Object fila[] = { x.getIddescansomedico(),x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getDm_fechaincio(),x.getDm_fechafin(),
+                                 x.getDm_tipolicencia(),x.getDiag_descripcion(),x.getDm_observaciones(),x.getDm_medico(),x.getMed_nombres(),x.getRuccem(),x.getCem_nombre(),x.getCantDias()}; 
+                dtm.addRow(fila);
+        }
+        jTable1.setModel(dtm);
+    }
+
+    
 	
 }
 

@@ -200,9 +200,20 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
        String id=jTable1.getValueAt(row, 0).toString();
        String name=jTable1.getValueAt(row, 1).toString();
        String apellido=jTable1.getValueAt(row, 2).toString();
-       
-        FrmRegistrosDM.txtEmpleado.setText(id);
-        FrmRegistrosDM.txtEmpleadoNom.setText(name +" "+ apellido);
+        try {
+            FrmRegistrosDM.txtEmpleado.setText(id);
+            FrmRegistrosDM.txtEmpleadoNom.setText(name +" "+ apellido);
+            
+        } catch (Exception e) {
+            System.out.println("Ventana no abierta");
+        }
+        
+        try {
+            FrmConsultaEm.txtEmpleado.setText(id);
+            FrmConsultaEm.txtEmpleadoNom.setText(name +" "+ apellido);
+        } catch (Exception e) {
+            System.out.println("Ventana no abierta");
+        }
         dispose();
        
     }//GEN-LAST:event_btnseleccionarActionPerformed

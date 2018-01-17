@@ -154,9 +154,20 @@ public class FrmBusquedaDiagnostico extends javax.swing.JFrame {
        String id=jTable1.getValueAt(row, 0).toString();
        String descripcion=jTable1.getValueAt(row, 1).toString();
        
-       
-        FrmRegistrosDM.txtcodDiagnostico.setText(id);
-        FrmRegistrosDM.txtDiagnostico.setText(descripcion);
+        try {
+            FrmRegistrosDM.txtcodDiagnostico.setText(id);
+            FrmRegistrosDM.txtDiagnostico.setText(descripcion);
+        } catch (Exception e) {
+            System.out.println("Ventana de Registro DM no abierta");
+        }
+        
+        try {
+            FrmMotivo.txtcodDiagnostico.setText(id);
+            FrmMotivo.txtDiagnostico.setText(descripcion);
+        } catch (Exception e) {
+            System.out.println("Ventana de Consulta de motivo no abierta");
+        }
+        
         dispose();
     }//GEN-LAST:event_btnseleccionarActionPerformed
 

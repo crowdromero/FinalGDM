@@ -59,6 +59,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mn_registrodescansomedico = new javax.swing.JMenuItem();
         mn_consultadescansomedicodetallada = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -210,6 +211,20 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu9.setBackground(new java.awt.Color(102, 102, 102));
         jMenu9.setForeground(new java.awt.Color(0, 0, 204));
         jMenu9.setText("Ayuda");
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Acerca de");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem1);
+
         jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
@@ -315,6 +330,20 @@ consultamantemiento.setVisible(true);
         
     }//GEN-LAST:event_mn_consultadescansomedicodetalladaActionPerformed
 
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        // TODO add your handling code here:
+        
+   
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        FrmAyuda acercade=new FrmAyuda();
+        acercade.setVisible(true);
+        acercade.setLocationRelativeTo(this);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -362,6 +391,7 @@ consultamantemiento.setVisible(true);
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenu mn_centromedico;

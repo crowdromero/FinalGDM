@@ -214,6 +214,13 @@ public class FrmBUscarEmpleados extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Ventana no abierta");
         }
+        
+        try {
+            FrmConsultasDM.txtEmpleado.setText(id);
+            FrmConsultasDM.txtEmpleadoNom.setText(name +" "+ apellido);
+        } catch (Exception e) {
+            System.out.println(" Ventana  de COnsulta xdias no abierta");
+        }
         dispose();
        
     }//GEN-LAST:event_btnseleccionarActionPerformed

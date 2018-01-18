@@ -33,6 +33,7 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
     public FrmRegistrosDM() {
         initComponents();
         TipoLicenciaDao.llenarCombo(cboTipo_licencia);
+        numeroAutogenerado();
         
     }
 
@@ -394,7 +395,8 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
                 txtMedico.setText("");
                 txtCentro_medico.setText("");
                 txtCentro_medico1.setText("");
-		//numeroAutogenerado();
+                numeroAutogenerado();
+                TipoLicenciaDao.llenarCombo(cboTipo_licencia);
 		
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -429,11 +431,11 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
 
 	}
         //Integer.parseInt(txtNumero.getText())
-        Descanso_medico dm=new Descanso_medico(1000007, txtEmpleado.getText(),dm_fechaincio , dm_fechafin, cboTipo_licencia.getSelectedIndex(), Integer.parseInt(txtcodDiagnostico.getText()), txtMedico.getText(), idcm, txtObservacion.getText(), Integer.parseInt(txtNumero_Dias.getText()));
+        Descanso_medico dm=new Descanso_medico(Integer.parseInt(txtNumero.getText()), txtEmpleado.getText(),dm_fechaincio , dm_fechafin, cboTipo_licencia.getSelectedIndex(), Integer.parseInt(txtcodDiagnostico.getText()), txtMedico.getText(), idcm, txtObservacion.getText(), Integer.parseInt(txtNumero_Dias.getText()));
         
         DescansoMedicoDao.RegistrarDM(dm);
-        
-                
+        DescansoMedicoDao.alerta1(txtEmpleado.getText());
+         numeroAutogenerado();       
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -549,7 +551,6 @@ public class FrmRegistrosDM extends javax.swing.JFrame {
     
     protected void numeroAutogenerado() {
 		txtNumero.setText(DescansoMedicoDao.obtenerDescansosMedicos().size()+1000000+1+"");
-		System.out.println(DescansoMedicoDao.obtenerDescansosMedicos().get(DescansoMedicoDao.obtenerDescansosMedicos().size()-1).getIddescansomedico());
 		System.out.println(DescansoMedicoDao.obtenerDescansosMedicos().size()+1000000+1);
     }
     

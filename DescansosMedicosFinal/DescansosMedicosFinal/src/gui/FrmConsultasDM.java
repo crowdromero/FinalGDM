@@ -6,6 +6,8 @@
 package gui;
 
 import Controlador.DescansoMedicoDao;
+import static Controlador.EmpleadoDao.obtenerEmpleadoxCodigo;
+import Modelo.Empleado;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -20,7 +22,7 @@ public class FrmConsultasDM extends javax.swing.JFrame {
      */
     public FrmConsultasDM() {
         initComponents();
-        DescansoMedicoDao.llenarTablaDescansoMedico(jTable1);
+        DescansoMedicoDao.llenarTablaDescansoMedicoxDiasAcumulados(jTable1,txtEmpleado.getText().trim());
     }
 
     /**
@@ -37,7 +39,10 @@ public class FrmConsultasDM extends javax.swing.JFrame {
         btnconsultar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
         btnlimpiar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtEmpleado = new javax.swing.JTextField();
+        btnEmpleado = new javax.swing.JButton();
+        txtEmpleadoNom = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Descanso Medico");
@@ -76,21 +81,43 @@ public class FrmConsultasDM extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel3.setText("Empleado");
+
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmpleadoKeyReleased(evt);
+            }
+        });
+
+        btnEmpleado.setText("...");
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
+
+        txtEmpleadoNom.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmpleadoNom, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(254, 254, 254)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnconsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                             .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -100,12 +127,21 @@ public class FrmConsultasDM extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnconsultar)
-                    .addComponent(jLabel1))
-                .addGap(13, 13, 13)
-                .addComponent(btnlimpiar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtEmpleadoNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(btnconsultar))
+                        .addGap(13, 13, 13)
+                        .addComponent(btnlimpiar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btncancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
@@ -118,17 +154,36 @@ public class FrmConsultasDM extends javax.swing.JFrame {
 
     private void btnconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultarActionPerformed
         // TODO add your handling code here:
-        
+        DescansoMedicoDao.llenarTablaDescansoMedicoxDiasAcumulados(jTable1,txtEmpleado.getText().trim());
     }//GEN-LAST:event_btnconsultarActionPerformed
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
         // TODO add your handling code here:
+        txtEmpleado.setText(null);
+        txtEmpleadoNom.setText(null);
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void txtEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyReleased
+        // TODO add your handling code here:
+        if (txtEmpleado.getText().trim().length()>5) {
+            for (Empleado x:obtenerEmpleadoxCodigo(txtEmpleado.getText().trim())) {
+                txtEmpleadoNom.setText(x.getEmp_nombre()+" "+x.getEmp_apellido());
+            }
+
+        }else txtEmpleadoNom.setText(null);
+    }//GEN-LAST:event_txtEmpleadoKeyReleased
+
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        // TODO add your handling code here:
+        FrmBUscarEmpleados busqueda=new FrmBUscarEmpleados();
+        busqueda.setVisible(true);
+
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,11 +221,14 @@ public class FrmConsultasDM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnconsultar;
     private javax.swing.JButton btnlimpiar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    public static javax.swing.JTextField txtEmpleado;
+    public static javax.swing.JTextField txtEmpleadoNom;
     // End of variables declaration//GEN-END:variables
 }

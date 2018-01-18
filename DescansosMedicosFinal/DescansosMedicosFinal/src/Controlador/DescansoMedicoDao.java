@@ -166,7 +166,7 @@ public class DescansoMedicoDao{
 		return listadedm;
 	}
 	
-	public static List<ListadoDescansoMedico> obtenerDescansosMedicoDetalleDias(){
+	public static List<ListadoDescansoMedico> obtenerDescansosMedicoDetalleDias(String codigo){
 		ListadoDescansoMedico ldm=null;
 		Connection con=null;
 		PreparedStatement ps;
@@ -179,19 +179,17 @@ public class DescansoMedicoDao{
 						
 			con = MySqlConection.getConection();
 			
-			String sql="{call sp_consultar_descanso_medico_diastotalesxpersona}";
-	        ps=con.prepareCall(sql);
-	        System.out.println("llegue aca 1");
-	        rs=ps.executeQuery();
-	        System.out.println("llegue aca 2");
+			String sql="{call sp_consultar_descanso_medico_diastotalesxpersona(?)}";
+                        ps=con.prepareCall(sql);
+                        ps.setString(1,codigo);
+                        rs=ps.executeQuery();
+                        System.out.println("hasta aqui");
 	        
             
-            while(rs.next()) {
-				 ldm=new ListadoDescansoMedico(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5),  rs.getString(6),  rs.getString(7),  rs.getString(8),  rs.getString(9),  rs.getString(10),  rs.getString(11),  rs.getString(12),  rs.getString(13),  rs.getInt(14));
-				 System.out.println("llegue aca 3");
+                        while(rs.next()) {
+				 ldm=new ListadoDescansoMedico(rs.getString(1), rs.getString(2), rs.getString(3),rs.getInt(4));
 				 listadedm.add(ldm);
 			 }
-            
 		} catch (Exception e) {
 			System.out.println("error al obtener los Registros");
 		}
@@ -286,8 +284,30 @@ public class DescansoMedicoDao{
         }
         jTable1.setModel(dtm);
     }
-
     
+    public static void llenarTablaDescansoMedicoxDiasAcumulados(JTable jTable1,String empleado) {
+        String CabeceraListado[]= new String[]{"Codigo","Nombre","Apellido","Dias Acumulados"};
+         DefaultTableModel dtm=new DefaultTableModel(CabeceraListado, 0);
+         for (ListadoDescansoMedico x:obtenerDescansosMedicoDetalleDias(empleado)) {
+               Object fila[] = { x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getCantDias()}; 
+                dtm.addRow(fila);
+        }
+        jTable1.setModel(dtm);
+    }
+
+    public static void alerta1(String codigo) {
+		
+	for (ListadoDescansoMedico x:obtenerDescansosMedicoDetalleDias(codigo)) {
+		Object fila[] = { x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getCantDias()}; 
+			
+		System.out.println("hasta aqui llego bien");
+						
+		if (x.getCantDias()>20) {
+                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los 20 dias acumulados");
+		}
+	}
+		
+    }
 	
 }
 

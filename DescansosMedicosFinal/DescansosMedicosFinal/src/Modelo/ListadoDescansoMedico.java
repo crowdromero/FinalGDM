@@ -27,6 +27,13 @@ public class ListadoDescansoMedico {
 		
 	}
 
+    public ListadoDescansoMedico(String dm_idempleado, String emp_nombre, String emp_apellido, int cantDias) {
+        this.dm_idempleado = dm_idempleado;
+        this.emp_nombre = emp_nombre;
+        this.emp_apellido = emp_apellido;
+        this.cantDias = cantDias;
+    }
+        
 	public ListadoDescansoMedico(int iddescansomedico, String dm_idempleado, String emp_nombre, String emp_apellido,
 			String dm_fechaincio, String dm_fechafin, String dm_tipolicencia, String diag_descripcion, String dm_medico,
 			String med_nombres, String ruccem, String cem_nombre, String dm_observaciones,int cantDias) {

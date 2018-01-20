@@ -300,6 +300,20 @@ CREATE TABLE IF NOT EXISTS `BD_DM`.`USUARIO` (
 ENGINE = InnoDB;
 
 
+
+-- -----------------------------------------------------
+-- Table `BD_DM`.`CORREO`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_DM`.`CORREO` ;
+
+CREATE TABLE IF NOT EXISTS `BD_DM`.`CORREO` (
+  `idregcorreo` INT NOT NULL,
+  `correo_dias` INT NOT NULL,
+  `correo_des` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`idregcorreo`));
+
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -459,7 +473,10 @@ insert into medico values('07777','Jacinto','ventura',1);
 insert into usuario values(1,'admin','123456',1,'E00001',1);
 insert into centro_medico values (1,10726960548,'Hogar Comun','La Calle',3,1,1,1);
 
-
+insert into correo values(1,300,'ntw.dromero@gmail.com');
+insert into correo values(2,120,'daa.room@gmail.com');
+insert into correo values(3,90,'ntw.dromero@gmail.com');
+insert into correo values(4,20,'ntw.dromero@gmail.com');
 
 
 

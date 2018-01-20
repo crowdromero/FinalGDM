@@ -142,3 +142,22 @@ delimiter ;
 call sp_consultar_Centros_MedicosxRazonSocial('');
 
 
+
+/*
+
+Procedure  Listado de Correos
+*/
+
+drop procedure if exists sp_consultar_Correos;
+
+delimiter &&
+create procedure sp_consultar_Correos()
+begin
+select * from correo;
+end&&
+delimiter ;
+
+
+call sp_consultar_Correos;
+
+

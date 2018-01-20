@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Conexion.MySqlConection;
+import Modelo.Correo;
 import Modelo.Descanso_medico;
 import Modelo.ListadoDescansoMedico;
 import javax.swing.JTable;
@@ -296,15 +297,25 @@ public class DescansoMedicoDao{
     }
 
     public static void alerta1(String codigo) {
-		
+        	
 	for (ListadoDescansoMedico x:obtenerDescansosMedicoDetalleDias(codigo)) {
 		Object fila[] = { x.getDm_idempleado(),x.getEmp_nombre(),x.getEmp_apellido(),x.getCantDias()}; 
 			
-		System.out.println("hasta aqui llego bien");
+		System.out.println("Intentando enviar Correo");
 						
-		if (x.getCantDias()>20) {
-                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los 20 dias acumulados");
-		}
+		if (x.getCantDias()>CorrreoDao.obtenerCorreo().get(0).getDias()) {
+                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(0).getDias() +"dias acumulados");
+                        EnviarMail.EnvioCorreo(CorrreoDao.obtenerCorreo().get(0).getCorreo(),"Alerta de registro bajo Subsidio","El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(0).getDias() +"dias acumulados");
+		}else if (x.getCantDias()>CorrreoDao.obtenerCorreo().get(1).getDias()) {
+                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(1).getDias() +"dias acumulados");
+                        EnviarMail.EnvioCorreo(CorrreoDao.obtenerCorreo().get(1).getCorreo(),"Alerta de registro bajo Subsidio","El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(1).getDias() +"dias acumulados");
+		}else if (x.getCantDias()>CorrreoDao.obtenerCorreo().get(2).getDias()) {
+                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(2).getDias() +"dias acumulados");
+                        EnviarMail.EnvioCorreo(CorrreoDao.obtenerCorreo().get(2).getCorreo(),"Alerta de registro bajo Subsidio","El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(2).getDias() +"dias acumulados");
+		}else if (x.getCantDias()>CorrreoDao.obtenerCorreo().get(3).getDias()) {
+                	JOptionPane.showMessageDialog(null, "El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(3).getDias() +"dias acumulados");
+                        EnviarMail.EnvioCorreo(CorrreoDao.obtenerCorreo().get(3).getCorreo(),"Alerta de registro bajo Subsidio","El trabajador  "+x.getEmp_nombre()+" "+x.getEmp_apellido()+"ha superado los"+ CorrreoDao.obtenerCorreo().get(3).getDias() +"dias acumulados");
+		} 
 	}
 		
     }
